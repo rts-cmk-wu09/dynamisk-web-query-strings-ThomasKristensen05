@@ -1,32 +1,17 @@
-const destinationsList = document.querySelector(".destinationsList")
-const destinations = document.querySelector("destinations.json")
+document.querySelector(".destinationList").addEventListener("click", (e) => {
+    let destinationsId = e.target.closest("figure").attributes.id.value
+    console.log(e)
+    if (e.target.classList.contains("fa-heart")) {
 
-fetch("/data/destinations.json")
-.then(response => response.json())
-.then(data => {
-    console.log(data)
-    data.destinations.forEach(destination => {
-        destinationsList.innerHTML += `
-        <figure id="${destinations.id}">
-            <img src="${destinations.id}>
-            <div>
-                <span><i class="fa-solid fa-heart"></i></span>
-                <a href="/destinations.html?id=${destinations.id}">More</a>
-            </div>
-        </figure>
-        `
-    })
+        if (!localStorage.getItem(destinationsId)) {
 
-        // main.innerHTML = `
-        
-        //     <img src="${data.image}" />        
-        //     <p class="destination">${data.destination}</p>        
-        //     <p class="title">${data.title}</p>        
-        //     <p class="subtitle">${data.subtitle}</p>        
-        //     <p class="text">${data.text}</p>        
-        // `
+            localStorage.setItem(destinationsId, 'whatever')
+            e.target.classList.add('fa-solid')
 
-        
+        } else { 
 
-    })
-
+            localStorage.removeItem(destinationsId)
+            e.target.classList.remove('fa-solid')
+        }
+    }
+})
